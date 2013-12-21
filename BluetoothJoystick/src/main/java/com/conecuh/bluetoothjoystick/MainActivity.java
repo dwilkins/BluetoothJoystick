@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.SurfaceView;
+import android.view.View;
+
 import com.conecuh.bluetoothjoystick.common.activities.SampleActivityBase;
 import com.conecuh.bluetoothjoystick.util.SystemUiHider;
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
@@ -166,4 +168,5 @@ public class MainActivity extends SampleActivityBase {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
+
 }

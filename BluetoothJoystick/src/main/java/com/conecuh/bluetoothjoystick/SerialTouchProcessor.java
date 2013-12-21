@@ -64,14 +64,9 @@ public class SerialTouchProcessor implements View.OnTouchListener {
         Canvas c = sh.lockCanvas();
         MotionEvent.PointerCoords coordinates= new MotionEvent.PointerCoords();
         final int pointerCount = e.getPointerCount();
-        float cx = 0;
-        float cy = 0;
-
         origin_paint.setColor(Color.RED);
         target_paint.setColor(Color.WHITE);
         for (int ptr = 0; ptr < pointerCount; ptr++) {
-            cx = e.getX(ptr);
-            cy = e.getY(ptr);
             e.getPointerCoords(ptr,coordinates);
             break;
         }
@@ -90,14 +85,9 @@ public class SerialTouchProcessor implements View.OnTouchListener {
         Canvas c = sh.lockCanvas();
         MotionEvent.PointerCoords coordinates= new MotionEvent.PointerCoords();
         final int pointerCount = e.getPointerCount();
-        float cx = 0;
-        float cy = 0;
-
         origin_paint.setColor(Color.RED);
         target_paint.setColor(Color.WHITE);
         for (int ptr = 0; ptr < pointerCount; ptr++) {
-            cx = e.getX(ptr);
-            cy = e.getY(ptr);
             e.getPointerCoords(ptr,coordinates);
             break;
         }

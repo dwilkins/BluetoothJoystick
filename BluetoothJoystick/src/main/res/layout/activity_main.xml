@@ -8,21 +8,59 @@
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
-    <SurfaceView android:id="@+id/fullscreen_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:keepScreenOn="true"
-        android:textColor="#33b5e5"
-        android:textStyle="bold"
-        android:textSize="50sp"
-        android:gravity="center"
-        android:text="@string/dummy_content" />
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:focusable="true">
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView" />
+    </FrameLayout>
+
     <FrameLayout android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:layout_gravity="center"
+        android:focusable="false">
+
+        <SurfaceView android:id="@+id/fullscreen_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:keepScreenOn="true"
+            android:textColor="#33b5e5"
+            android:textStyle="bold"
+            android:textSize="50sp"
+            android:gravity="center"
+            android:text="@string/dummy_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Not Connected"
+            android:id="@+id/textView"
+            android:layout_gravity="center_horizontal|top"
+            android:textAlignment="center"
+            android:textIsSelectable="true"
+            android:gravity="center"
+            android:textColor="@android:color/black" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Connect"
+            android:id="@+id/button"
+            android:layout_gravity="center_horizontal|bottom"
+            android:clickable="true"
+            android:enabled="true"
+            android:onClick="showConnections" />
 
         <LinearLayout android:id="@+id/fullscreen_content_controls"
             style="?metaButtonBarStyle"
@@ -34,6 +72,7 @@
             tools:ignore="UselessParent">
 
         </LinearLayout>
+
     </FrameLayout>
 
 </FrameLayout>
