@@ -17,10 +17,21 @@ import com.conecuh.bluetoothjoystick.common.logger.Log;
 public class SerialTouchProcessor implements View.OnTouchListener {
     MotionEvent.PointerCoords origin_coordinates = new MotionEvent.PointerCoords();
     MotionEvent.PointerCoords target_coordinates = new MotionEvent.PointerCoords();
+
+    private ConnectedThread mConnectedThread;
+
     public SerialTouchProcessor() {
-        // Set KeyListener to ourself
+        mConnectedThread = new ConnectedThread();
+        mConnectedThread.start();
+
+    }
+    public void onPause(){
+        mConnectedThread.onPause();
     }
 
+    public void onResume(){
+        mConnectedThread.onResume();
+    }
 
     public boolean onTouch(View v, MotionEvent motionEvent) {
 

@@ -21,9 +21,11 @@ import android.support.v4.app.Fragment;
 import android.view.GestureDetector;
 import android.view.View;
 
+import com.conecuh.bluetoothjoystick.common.logger.Log;
 import com.conecuh.bluetoothjoystick.common.logger.LogFragment;
 
 public class BasicGestureDetectFragment extends Fragment{
+    SerialTouchProcessor touchProcessor = null;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +51,9 @@ public class BasicGestureDetectFragment extends Fragment{
          * actually detects an event, it will use the callbacks you created in the
          * SimpleOnGestureListener to alert your application.
         */
-        gestureView.setOnTouchListener(new SerialTouchProcessor());
-
+        touchProcessor = new SerialTouchProcessor();
+        gestureView.setOnTouchListener(touchProcessor);
+        Log.i("TAG", "SerialTouchProcessor Created");
 //        gestureView.setOnTouchListener(new View.OnTouchListener() {
 //            @Override
 //            public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -61,7 +64,15 @@ public class BasicGestureDetectFragment extends Fragment{
         // END_INCLUDE(init_detector)
     }
 
+    public void onPause() {
+        super.onPause();
+        touchProcessor.onPause();
+    }
 
+    public void onResume() {
+        super.onResume();
+        touchProcessor.onResume();
+    }
 
     public void clearLog() {
         LogFragment logFragment =  ((LogFragment) getActivity().getSupportFragmentManager()

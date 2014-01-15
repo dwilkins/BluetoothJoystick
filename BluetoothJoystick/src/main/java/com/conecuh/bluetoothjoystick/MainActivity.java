@@ -5,9 +5,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
-import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.conecuh.bluetoothjoystick.common.activities.SampleActivityBase;
 import com.conecuh.bluetoothjoystick.util.SystemUiHider;
@@ -24,8 +24,6 @@ public class MainActivity extends SampleActivityBase {
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
      */
     private static final boolean AUTO_HIDE = true;
-
-    public static final String TAG = "MainActivity";
 
     public static final String FRAGTAG = "BasicGestureDetectFragment";
 
@@ -51,6 +49,8 @@ public class MainActivity extends SampleActivityBase {
      */
     private SystemUiHider mSystemUiHider;
 
+    BasicGestureDetectFragment gestureFragment = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,13 +59,14 @@ public class MainActivity extends SampleActivityBase {
 
         if (getSupportFragmentManager().findFragmentByTag(FRAGTAG) == null ) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            BasicGestureDetectFragment fragment = new BasicGestureDetectFragment();
-            transaction.add(fragment, FRAGTAG);
+            gestureFragment= new BasicGestureDetectFragment();
+            transaction.add(gestureFragment, FRAGTAG);
             transaction.commit();
         }
 
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final SurfaceView contentView = (SurfaceView)findViewById(R.id.fullscreen_content);
+
 
         // Set up an instance of SystemUiHider to control the system UI for
         // this activity.
@@ -127,6 +128,20 @@ public class MainActivity extends SampleActivityBase {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        gestureFragment.onResume();
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        gestureFragment.onPause();
+    }
+
+
+    @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
@@ -137,20 +152,16 @@ public class MainActivity extends SampleActivityBase {
     }
 
 
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS);
-            }
-            return false;
-        }
-    };
+    private void errorExit(String title, String message){
+        Toast.makeText(getBaseContext(), title + " - " + message, Toast.LENGTH_LONG).show();
+        finish();
+    }
+    private void warning(String title, String message){
+        Toast.makeText(getBaseContext(), title + " - " + message, Toast.LENGTH_LONG).show();
+    }
+
+
+
 
     Handler mHideHandler = new Handler();
     Runnable mHideRunnable = new Runnable() {

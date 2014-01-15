@@ -36,8 +36,8 @@ public class SampleActivityBase extends FragmentActivity {
 
     @Override
     protected  void onStart() {
-        super.onStart();
         initializeLogging();
+        super.onStart();
     }
 
     /** Set up targets to receive log data */
